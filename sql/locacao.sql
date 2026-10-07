@@ -1,9 +1,9 @@
-DROP DATABASE IF EXISTS syspan_locacao_estagio;
+DROP DATABASE IF EXISTS syspan_locacao_estagio_v2;
 
-CREATE DATABASE IF NOT EXISTS syspan_locacao_estagio
+CREATE DATABASE IF NOT EXISTS syspan_locacao_estagio_v2
  DEFAULT CHARACTER SET utf8mb4
  DEFAULT COLLATE utf8mb4_general_ci;
-USE syspan_locacao_estagio;
+USE syspan_locacao_estagio_v2;
 
 -- Clientes
 CREATE TABLE IF NOT EXISTS clientes (

@@ -3,7 +3,7 @@
 
     $host = '127.0.0.1';
     $porta = '3306';
-    $banco = 'syspan_locacao_estagio';
+    $banco = 'syspan_locacao_estagio_v2';
     $usuario = 'root';
     $senha = '';
 
