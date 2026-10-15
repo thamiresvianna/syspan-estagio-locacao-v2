@@ -1,5 +1,5 @@
 body {
-    font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
     background: #f8f8f8;
     margin: 20px;
 }
@@ -162,39 +162,70 @@ button {
     background-color: #3ca8f0;
 }
 
+.pagina-inicial{
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.descricao-index{
+    max-width: 750px;
+    margin: 0 auto 10px;
+    color: #444;
+}
+
 .caixa-index {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 15px;
+    margin-top: 25px;
+    text-align: left;
 }
 
 .card-index {
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #5eafe5;
-    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    border-radius: 12px;
+    background-color: #fff;
+    border: 1px solid #babfc2;
+    border-top: 6px solid #5eafe5;
+    color: #333;
     text-decoration: none;
-    flex: 1;
-    min-width: 250px;
-    max-width: 400px;
+    min-width: 0;
     transition: transform .2s, box-shadow .2s;
-    cursor: pointer;
 }
 
 .card-index:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,.2);
-    background-color: #4b9fd8;
+    box-shadow: 0 5px 15px rgba(0,0,0,.12);
 }
 
-.card-index h4 {
-    margin: 0;
-    font-size: 18px;
+.card-index:focus-visible {
+    outline: 2px solid #09375c;
+    outline-offset: 2px;
+}
+
+.card-index h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    color: #09375c;
 }
 
 .card-index p {
     line-height: 1.5;
+    flex-grow: 1;
+    margin: 0;
+    color: #333;
+}
+
+.acessar-card {
+    margin-top: 14px;
+    margin-right: 16px;
+    font-weight: bold;
+    color: #222;
+    text-align: right;
 }
 
 .status {
@@ -326,4 +357,14 @@ footer {
     font-size: 14px;
     margin-top: 20px;
     color: #777;
+}
+
+@media (max-width: 600px) {
+    .caixa-index {
+        grid-template-columns: 1fr;
+    }
+
+    .card-index {
+        padding: 20px;
+    }
 }

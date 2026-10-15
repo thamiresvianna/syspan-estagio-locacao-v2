@@ -1,6 +1,6 @@
         <hr>
         <footer>
-            <p>Projeto Locação v2.0 - <?= date('Y') ?></p>
+            <p>Mini Locação Syspan v2.0 - <?= date('Y') ?></p>
         </footer>
     </body>
 
