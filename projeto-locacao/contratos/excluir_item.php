@@ -15,7 +15,7 @@
     $item = $consulta->fetch();
 
     if(!$item){
-        die("Item não encontrado.");
+        redirecionarErro("Item não encontrado.");
     }
 
     $sql = 'SELECT id, data_inicio, data_fim FROM contratos WHERE id = :id';
@@ -24,13 +24,13 @@
     $contrato = $consulta->fetch();
 
     if(!$contrato){
-        die("Contrato não encontrado.");
+        redirecionarErro("Contrato não encontrado.");
     }
 
     $status = calcularStatusContrato($contrato['data_inicio'], $contrato['data_fim']);
 
     if($status == "ENCERRADO"){
-        die("Não é possível excluir itens de um contrato encerrado.");
+        redirecionarErro("Não é possível excluir itens de um contrato encerrado.", "ver.php?id=" . (int)$item['id_contrato']);
     }
 
     $erro = '';
@@ -44,12 +44,13 @@
 
             if($stmt->rowCount() === 0){
                 $erro = "Erro ao excluir item.";
+            } else {
+                registrarLog("Item do contrato excluído: ID $id_item");
+
+                definirMensagem("Item excluído do contrato com sucesso.", "sucesso");
+                header("Location: ver.php?id=" . (int)$item['id_contrato']);
+                exit;
             }
-
-            registrarLog("Item do contrato excluído: ID $id_item");
-
-            header("Location: ver.php?id=" . (int)$item['id_contrato']);
-            exit;
         }
         catch(PDOException $e){
             $erro = "Erro ao excluir item.";

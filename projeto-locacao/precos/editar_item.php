@@ -15,7 +15,7 @@
     $item = $consulta->fetch();
 
     if(!$item){
-        die("Item não encontrado.");
+        redirecionarErro("Item não encontrado.");
     }
 
     $valor_diaria = (float)$item['valor_diaria'];
@@ -38,6 +38,7 @@
 
                 registrarLog("Item da tabela de preços editada: ID $id_item");
 
+                definirMensagem("Item da tabela de preços atualizado com sucesso.", "sucesso");
                 header("Location: ver.php?id=" . (int)$item['id_preco']);
                 exit;
             }

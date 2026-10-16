@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../helpers.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -20,3 +21,5 @@
         </nav>
 
         <hr>
+
+<?php exibirMensagem(); ?>

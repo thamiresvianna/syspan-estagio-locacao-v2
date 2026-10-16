@@ -13,7 +13,7 @@
     $contrato = $consulta->fetch();
 
     if(!$contrato){
-        die("Contrato não encontrado.");
+        redirecionarErro("Contrato não encontrado.");
     }
 
     $sql = 'SELECT id, nome FROM clientes ORDER BY nome ASC';
@@ -97,6 +97,7 @@
 
                 registrarLog("Contrato editado: ID $id");
 
+                definirMensagem("Contrato atualizado com sucesso.", "sucesso");
                 header("Location: ver.php?id=" . (int)$id);
                 exit;
             }

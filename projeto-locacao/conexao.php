@@ -15,6 +15,7 @@
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         ]);
     } catch (PDOException $e) {
-        die("Erro ao conectar no banco: " . $e->getMessage());
+        error_log("Erro ao conectar no banco: " . $e->getMessage());
+        die("Não foi possível conectar ao banco de dados. Por favor, tente novamente mais tarde.");
     }
 ?>

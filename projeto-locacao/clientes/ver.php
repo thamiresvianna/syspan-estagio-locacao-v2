@@ -12,7 +12,7 @@
     $cliente = $consulta->fetch();
 
     if(!$cliente){
-        die("Cliente não encontrado.");
+        redirecionarErro("Cliente não encontrado.");
     }
 
     require_once '../layout/header.php';

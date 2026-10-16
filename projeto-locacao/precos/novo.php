@@ -29,6 +29,7 @@
 
                 registrarLog("Tabela de preços cadastrada: $nome");
 
+                definirMensagem("Tabela de preços cadastrada com sucesso.", "sucesso");
                 header("Location: listar.php");
                 exit;
             }

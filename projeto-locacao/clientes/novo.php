@@ -78,6 +78,7 @@
 
                 registrarLog("Cliente cadastrado: $nome");
 
+                definirMensagem("Cliente cadastrado com sucesso.", "sucesso");
                 header("Location: listar.php");
                 exit;
             } 

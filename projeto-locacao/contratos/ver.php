@@ -16,7 +16,7 @@
     $contrato = $consulta->fetch();
 
     if(!$contrato){
-        die("Contrato não encontrado.");
+        redirecionarErro("Contrato não encontrado.");
     }
 
     $status_atual = calcularStatusContrato($contrato['data_inicio'], $contrato['data_fim']);

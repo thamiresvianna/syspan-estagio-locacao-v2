@@ -12,7 +12,7 @@
     $equipamento = $consulta->fetch();
 
     if(!$equipamento){
-        die("Equipamento não encontrado.");
+        redirecionarErro("Equipamento não encontrado.");
     }
 
     require_once '../layout/header.php';

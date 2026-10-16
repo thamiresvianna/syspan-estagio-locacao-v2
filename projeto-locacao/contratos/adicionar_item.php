@@ -11,17 +11,17 @@
     $contrato = $consulta->fetch();
 
     if(!$contrato){
-        die("Contrato não encontrado.");
+        redirecionarErro("Contrato não encontrado.");
     }
 
     $status = calcularStatusContrato($contrato['data_inicio'], $contrato['data_fim']);
 
     if($status == "ENCERRADO"){
-        die("Não é possível adicionar equipamentos em um contrato encerrado.");
+        redirecionarErro("Não é possível adicionar equipamentos em um contrato encerrado.", "ver.php?id=" . (int)$id_contrato);
     }
 
     if(empty($contrato['id_preco'])){
-        die("Contrato não possui tabela de preços vinculada.");
+        redirecionarErro("Contrato não possui tabela de preços vinculada.", "ver.php?id=" . (int)$id_contrato);
     }
 
     $sql = 'SELECT equipamentos.id, equipamentos.descricao, preco_itens.valor_diaria 
@@ -90,6 +90,7 @@
                     registrarLog("Item $id_equipamento adicionado ao contrato: $id_contrato");
                 }
 
+                definirMensagem("Equipamento adicionado ao contrato com sucesso.", "sucesso");
                 header("Location: ver.php?id=" . (int)$id_contrato);
                 exit;
             }

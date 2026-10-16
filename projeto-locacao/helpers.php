@@ -1,6 +1,34 @@
 <?php
     declare(strict_types=1);
 
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    function definirMensagem(string $texto, string $tipo = 'sucesso'): void {
+        $_SESSION['mensagem'] = ['texto' => $texto, 'tipo' => $tipo];
+    }
+
+    function exibirMensagem(): void {
+        if(empty($_SESSION['mensagem'])) {
+            return;
+        }
+
+        $mensagem = $_SESSION['mensagem'];
+        unset($_SESSION['mensagem']);
+
+        $tipo = $mensagem['tipo'] === 'erro' ? 'erro' : 'sucesso';
+        $papel = $tipo === 'erro' ? 'alert' : 'status';
+
+        echo "<div class='mensagem mensagem-$tipo' role='$papel'>" . e($mensagem['texto']) . "</div>";
+    }
+
+    function redirecionarErro(string $texto, string $destino = 'listar.php'): never {
+        definirMensagem($texto, 'erro');
+        header("Location: $destino");
+        exit;
+    }
+
     function e(string $value): string {
         return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
@@ -9,7 +37,7 @@
         $id = (int) ($_GET['id'] ?? 0);
 
         if($id <= 0){
-            die("ID inválido.");
+            redirecionarErro("ID inválido.");
         }
 
         return $id;
@@ -38,7 +66,7 @@
 
     function mostrarErros(array $erros): void {
         foreach ($erros as $erro){
-            echo "<p class='erro'>" . e($erro) . "</p>";
+            echo "<div class='mensagem mensagem-erro' role='alert'>" . e($erro) . "</div>";
         }
     }
 

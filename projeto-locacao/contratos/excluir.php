@@ -12,7 +12,7 @@
     $contrato = $consulta->fetch();
 
     if(!$contrato){
-        die("Contrato não encontrado.");
+        redirecionarErro("Contrato não encontrado.");
     }
 
     $erro = '';
@@ -35,12 +35,13 @@
 
                 if($stmt->rowCount() === 0){
                     $erro = "Erro ao excluir contrato.";
+                } else {
+                    registrarLog("Contrato excluído: ID $id");
+
+                    definirMensagem("Contrato excluído com sucesso.", "sucesso");
+                    header("Location: listar.php");
+                    exit;
                 }
-
-                registrarLog("Contrato excluído: ID $id");
-
-                header("Location: listar.php");
-                exit;
             }
             catch(PDOException $e){
                 $erro = "Erro ao excluir contrato.";

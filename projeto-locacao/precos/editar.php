@@ -13,7 +13,7 @@
     $precos = $consulta->fetch();
 
     if(!$precos){
-        die("Tabela de preços não encontrada.");
+        redirecionarErro("Tabela de preços não encontrada.");
     }
 
     $nome = $precos['nome'];
@@ -41,6 +41,7 @@
 
                 registrarLog("Tabela de preços editada: ID $id");
 
+                definirMensagem("Tabela de preços atualizada com sucesso.", "sucesso");
                 header("Location: listar.php");
                 exit;
             }

@@ -11,7 +11,7 @@
     $preco = $consulta->fetch();
 
     if(!$preco){
-        die("Tabela de preços não encontrada.");
+        redirecionarErro("Tabela de preços não encontrada.");
     }
 
     $sqlItens = 'SELECT preco_itens.id, equipamentos.descricao AS equipamento, preco_itens.valor_diaria FROM preco_itens 

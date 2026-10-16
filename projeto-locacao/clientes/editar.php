@@ -14,7 +14,7 @@
     $cliente = $consulta->fetch();
 
     if(!$cliente){
-        die("Cliente não encontrado.");
+        redirecionarErro("Cliente não encontrado.");
     }
 
     $tipo_pessoa = $cliente['tipo_pessoa'];
@@ -92,6 +92,7 @@
 
                 registrarLog("Cliente editado: ID $id");
 
+                definirMensagem("Cliente atualizado com sucesso.", "sucesso");
                 header("Location: listar.php");
                 exit;
             }

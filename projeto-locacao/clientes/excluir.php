@@ -12,7 +12,7 @@
     $cliente = $consulta->fetch();
 
     if(!$cliente){
-        die("Cliente não encontrado.");
+        redirecionarErro("Cliente não encontrado.");
     }
 
     $erro = '';
@@ -34,13 +34,14 @@
                 $stmt->execute([":id" => $id]);
 
                 if($stmt->rowCount() === 0){
-                    die("Erro ao excluir cliente.");
+                    $erro = "Erro ao excluir cliente.";
+                } else {
+                    registrarLog("Cliente excluído: ID $id");
+
+                    definirMensagem("Cliente excluído com sucesso.", "sucesso");
+                    header("Location: listar.php");
+                    exit;
                 }
-
-                registrarLog("Cliente excluído: ID $id");
-
-                header("Location: listar.php");
-                exit;
             }
             catch(PDOException $e){
                 $erro = "Erro ao excluir cliente.";

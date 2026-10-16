@@ -13,7 +13,7 @@
     $equipamento = $consulta->fetch();
 
     if(!$equipamento){
-        die("Equipamento não encontrado.");
+        redirecionarErro("Equipamento não encontrado.");
     }
 
     $erro = '';
@@ -36,13 +36,14 @@
                 $stmt->execute([":id" => $id]);
 
                 if($stmt->rowCount() === 0){
-                    die("Erro ao excluir equipamento.");
+                    $erro = "Erro ao excluir equipamento.";
+                } else {
+                    registrarLog("Equipamento excluído: ID $id");
+
+                    definirMensagem("Equipamento excluído com sucesso.", "sucesso");
+                    header("Location: listar.php");
+                    exit;
                 }
-
-                registrarLog("Equipamento excluído: ID $id");
-
-                header("Location: listar.php");
-                exit;
             }
             catch(PDOException $e){
                 $erro = "Erro ao excluir equipamento.";

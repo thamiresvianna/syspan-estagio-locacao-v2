@@ -55,6 +55,7 @@
 
                 registrarLog("Equipamento cadastrado: $descricao");
 
+                definirMensagem("Equipamento cadastrado com sucesso.", "sucesso");
                 header("Location: listar.php");
                 exit;
             }

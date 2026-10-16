@@ -74,6 +74,7 @@
                 $id_contrato = $pdo->lastInsertId();
                 registrarLog("Contrato criado: ID $id_contrato");
 
+                definirMensagem("Contrato cadastrado com sucesso.", "sucesso");
                 header("Location: listar.php");
                 exit;
             }

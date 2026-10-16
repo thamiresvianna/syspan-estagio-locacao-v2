@@ -14,7 +14,7 @@
     $item = $consulta->fetch();
 
     if(!$item){
-        die("Item não encontrado.");
+        redirecionarErro("Item não encontrado.");
     }
 
     $sql = 'SELECT id, data_inicio, data_fim FROM contratos WHERE id = :id';
@@ -23,13 +23,13 @@
     $contrato = $consulta->fetch();
 
     if(!$contrato){
-        die("Contrato não encontrado.");
+        redirecionarErro("Contrato não encontrado.");
     }
 
     $status = calcularStatusContrato($contrato['data_inicio'], $contrato['data_fim']);
 
     if($status == "ENCERRADO"){
-        die("Não é possível editar itens de um contrato encerrado.");
+        redirecionarErro("Não é possível editar itens de um contrato encerrado.", "ver.php?id=" . (int)$item['id_contrato']);
     }
 
     $sql = 'SELECT equipamentos.id, equipamentos.descricao, preco_itens.valor_diaria FROM equipamentos
@@ -89,6 +89,7 @@
 
                 registrarLog("Item do contrato editado: ID $id_item");
 
+                definirMensagem("Item do contrato atualizado com sucesso.", "sucesso");
                 header("Location: ver.php?id=". (int)$item['id_contrato']);
                 exit;
             }

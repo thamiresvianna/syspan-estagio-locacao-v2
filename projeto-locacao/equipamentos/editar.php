@@ -14,7 +14,7 @@
     $equipamento = $consulta->fetch();
 
     if(!$equipamento){
-        die("Equipamento não encontrado.");
+        redirecionarErro("Equipamento não encontrado.");
     }
 
     $codigo = $equipamento['codigo'];
@@ -69,6 +69,7 @@
 
                 registrarLog("Equipamento editado: ID $id");
 
+                definirMensagem("Equipamento atualizado com sucesso.", "sucesso");
                 header("Location: listar.php");
                 exit;
             }

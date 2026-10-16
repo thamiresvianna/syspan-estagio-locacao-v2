@@ -14,7 +14,7 @@
     $item = $consulta->fetch();
 
     if(!$item){
-        die("Item não encontrado.");
+        redirecionarErro("Item não encontrado.");
     }
 
     $erro = '';
@@ -37,12 +37,13 @@
 
                 if($stmt->rowCount() === 0){
                     $erro = "Erro ao excluir item.";
+                } else {
+                    registrarLog("Item da tabela de preços excluído: ID $id_item");
+
+                    definirMensagem("Item da tabela de preços excluído com sucesso.", "sucesso");
+                    header("Location: ver.php?id=" . (int)$item['id_preco']);
+                    exit;
                 }
-
-                registrarLog("Item da tabela de preços excluído: ID $id_item");
-
-                header("Location: ver.php?id=" . (int)$item['id_preco']);
-                exit;
             }
             catch(PDOException $e){
                 $erro = "Erro ao excluir item.";

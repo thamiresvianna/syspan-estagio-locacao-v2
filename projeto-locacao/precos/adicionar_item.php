@@ -11,7 +11,7 @@
     $preco = $consulta->fetch();
 
     if(!$preco){
-        die("Tabela de preços não encontrada.");
+        redirecionarErro("Tabela de preços não encontrada.");
     }
 
     $sql = 'SELECT id, descricao FROM equipamentos WHERE ativo = 1 ORDER BY descricao ASC';
@@ -46,7 +46,7 @@
             $equipamento = $consulta->fetch();
 
             if(!$equipamento){
-                die("Equipamento não encontrado ou inativo.");
+                $erros[] = "Equipamento não encontrado ou inativo.";
             } else {
                 try{
                     $sql = 'INSERT INTO preco_itens (id_preco, id_equipamento, valor_diaria) 
@@ -61,6 +61,7 @@
 
                     registrarLog("Item $id_equipamento adicionado a tabela de preços: $id_preco");
 
+                    definirMensagem("Equipamento adicionado à tabela de preços com sucesso.", "sucesso");
                     header("Location: ver.php?id=" . (int)$id_preco);
                     exit;
                 }

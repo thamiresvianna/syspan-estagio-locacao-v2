@@ -12,7 +12,7 @@
     $precos = $consulta->fetch();
 
     if(!$precos){
-        die("Tabela de preços não encontrada.");
+        redirecionarErro("Tabela de preços não encontrada.");
     }
 
     $erro = '';
@@ -35,12 +35,13 @@
 
                 if($stmt->rowCount() === 0){
                     $erro = "Erro ao excluir tabela de preços.";
+                } else {
+                    registrarLog("Tabela de preços excluída: ID $id");
+
+                    definirMensagem("Tabela de preços excluída com sucesso.", "sucesso");
+                    header("Location: listar.php");
+                    exit;
                 }
-
-                registrarLog("Tabela de preços excluída: ID $id");
-
-                header("Location: listar.php");
-                exit;
             }
             catch(PDOException $e){
                 $erro = "Erro ao excluir tabela de preços.";
