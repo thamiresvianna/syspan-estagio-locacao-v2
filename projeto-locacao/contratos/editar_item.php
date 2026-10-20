@@ -46,6 +46,8 @@
     $qtd = $item['qtd'];
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+
         $id_equipamento = (int) trim($_POST["id_equipamento"] ?? '');
         $qtd = (int) trim($_POST["qtd"] ?? '');
 
@@ -111,6 +113,8 @@
 <h2>Editar Item do Contrato</h2>
 
 <form method="POST">
+    <?= campoTokenCsrf() ?>
+    
     <label>Equipamento:</label><br>
     <select name="id_equipamento" required>
         <option value="" disabled <?= empty($id_equipamento) ? 'selected' : '' ?>>- Selecione um equipamento -</option>

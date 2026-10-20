@@ -21,6 +21,8 @@
     $valor_diaria = (float)$item['valor_diaria'];
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+        
         $valor_diaria = normalizarDecimal((string)($_POST["valor_diaria"] ?? '0'));
         $valor_diaria = (float) $valor_diaria;
 
@@ -60,6 +62,8 @@
 <h2>Editar Valor da Diária</h2>
 
 <form method="POST">
+    <?= campoTokenCsrf() ?>
+    
     <p><strong>Equipamento:</strong> <?= e($item["descricao"]) ?></p><br>
 
     <label>Valor da Diária:</label><br>

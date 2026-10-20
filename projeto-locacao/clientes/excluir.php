@@ -18,6 +18,8 @@
     $erro = '';
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+        
         $sql = 'SELECT COUNT(*) FROM contratos WHERE id_cliente = :id';
         $consulta = $pdo->prepare($sql);
         $consulta -> execute([':id' => $id]);
@@ -63,6 +65,8 @@
 <p>Tem certeza que deseja excluir o cliente: <strong><?= e($cliente["nome"]) ?></strong>?</p>
 
 <form method="POST">
+    <?= campoTokenCsrf() ?>
+    
     <button type="submit">Excluir</button>
     <a class="botao-cancelar" href="listar.php">Cancelar</a>
 </form>

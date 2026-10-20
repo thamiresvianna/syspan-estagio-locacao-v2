@@ -29,6 +29,42 @@
         exit;
     }
 
+    function gerarTokenCsrf(): string {
+        if(empty($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
+        return $_SESSION['csrf_token'];
+    }
+
+    function campoTokenCsrf(): string {
+        $token = gerarTokenCsrf();
+
+        return "<input type='hidden' name='csrf_token' value='" . e($token) . "'>";
+    }
+
+    function validarTokenCsrf(?string $token): bool {
+        if (empty($_SESSION['csrf_token']) || $token === '') {
+            return false;
+        }
+
+        return hash_equals($_SESSION['csrf_token'], (string)$token);
+    }
+
+    function exigirCsrf(): void {
+        $token = $_POST['csrf_token'] ?? '';
+
+        if(!is_string($token) || !validarTokenCsrf($token)) {
+            $destino = basename($_SERVER['PHP_SELF']);
+
+            if(!empty($_SERVER['QUERY_STRING'])) {
+                $destino .= '?' . $_SERVER['QUERY_STRING'];
+            }
+
+            redirecionarErro("Formulário inválido ou expirado. Recarregue a página e tente novamente.", $destino);
+        }
+    }
+
     function e(string $value): string {
         return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }

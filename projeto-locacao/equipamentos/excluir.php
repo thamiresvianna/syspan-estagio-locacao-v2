@@ -19,6 +19,8 @@
     $erro = '';
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+
         $sql = 'SELECT (SELECT COUNT(*) FROM contrato_itens WHERE id_equipamento = :id1) +
                        (SELECT COUNT(*) FROM preco_itens WHERE id_equipamento = :id2)';
         $consulta = $pdo->prepare($sql);
@@ -65,6 +67,8 @@
 <p>Tem certeza que deseja excluir o equipamento: <strong><?= e($equipamento["descricao"]) ?></strong>?</p>
 
 <form method="POST">
+    <?= campoTokenCsrf() ?>
+    
     <button type="submit">Excluir</button>
     <a class="botao-cancelar" href="listar.php">Cancelar</a>
 </form>

@@ -32,6 +32,8 @@
     $observacao = $cliente['observacao'];
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+
         $tipo_pessoa = trim($_POST["tipo_pessoa"] ?? '');
         $nome = trim($_POST["nome"] ?? '');
         $cpf_cnpj = trim($_POST["cpf_cnpj"] ?? '');
@@ -114,6 +116,8 @@
 <h2>Editar Cliente</h2>
 
 <form method="POST" class="form-grid">
+    <?= campoTokenCsrf() ?>
+    
     <fieldset>
         <legend>Dados Pessoais</legend>
         <div class="grid-campos">

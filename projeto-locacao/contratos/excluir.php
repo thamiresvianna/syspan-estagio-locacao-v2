@@ -18,6 +18,8 @@
     $erro = '';
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+
         $sql = 'SELECT COUNT(*) FROM contrato_itens WHERE id_contrato = :id';
         $consulta = $pdo->prepare($sql);
         $consulta -> execute([':id' => $id]);
@@ -63,6 +65,8 @@
 <p>Tem certeza que deseja excluir o contrato: <strong>Nº <?= str_pad($contrato['id'], 4, '0', STR_PAD_LEFT) ?></strong>?</p>
 
 <form method="POST">
+    <?= campoTokenCsrf() ?>
+    
     <button type="submit">Excluir</button>
     <a class="botao-cancelar" href="listar.php">Cancelar</a>
 </form>

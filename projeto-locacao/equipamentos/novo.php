@@ -15,6 +15,8 @@
     $observacao = '';
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+        
         $codigo = trim($_POST["codigo"] ?? '');
         $descricao = trim($_POST["descricao"] ?? '');
         $categoria = trim($_POST["categoria"] ?? '');
@@ -77,6 +79,8 @@
 <h2>Inserir Equipamento</h2>
 
 <form method="POST" class="form-grid">
+    <?= campoTokenCsrf() ?>
+    
     <fieldset>
         <legend>Dados do Equipamento</legend>
         <div class="grid-campos">

@@ -23,6 +23,8 @@
     $observacao = '';
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+
         $id_cliente = (int) trim($_POST["id_cliente"] ?? '');
         $id_preco = (int) trim($_POST["id_preco"] ?? '');
         $data_inicio = trim($_POST["data_inicio"] ?? '');
@@ -96,6 +98,8 @@
 <h2>Novo Contrato</h2>
 
 <form method="POST">
+    <?= campoTokenCsrf() ?>
+    
     <label>Cliente:</label><br>
     <select name="id_cliente" required>
         <option value="" disabled <?= empty($id_cliente) ? 'selected' : '' ?>>- Selecione um cliente -</option>

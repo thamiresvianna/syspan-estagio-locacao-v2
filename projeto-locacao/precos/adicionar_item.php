@@ -25,6 +25,8 @@
     $valor_diaria = 1.00;
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+
         $id_equipamento = (int) trim($_POST["id_equipamento"] ?? '');
         $valor_diaria = normalizarDecimal((string)($_POST["valor_diaria"] ?? '0'));
         $valor_diaria = (float) $valor_diaria;
@@ -84,6 +86,8 @@
 <h2>Adicionar Item a Tabela de Preços <?= $id_preco ?></h2>
 
 <form method="POST">
+    <?= campoTokenCsrf() ?>
+    
     <label>Equipamento:</label><br>
     <select name="id_equipamento" required>
         <option value="" disabled <?= empty($id_equipamento) ? 'selected' : '' ?>>- Selecione um equipamento -</option>

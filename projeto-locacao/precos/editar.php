@@ -21,6 +21,8 @@
     $ativo = $precos['ativo'];
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+
         $nome = trim($_POST["nome"] ?? '');
         $descricao = trim($_POST["descricao"] ?? '');
         $ativo = isset($_POST["ativo"]) ? 1 : 0;
@@ -63,6 +65,8 @@
 <h2>Editar Tabela de Preços</h2>
 
 <form method="POST">
+    <?= campoTokenCsrf() ?>
+    
     <label>Nome da Tabela:</label><br>
     <input type="text" name="nome" value="<?= e($nome ?? '') ?>" required><br>
 

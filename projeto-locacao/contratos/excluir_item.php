@@ -36,6 +36,8 @@
     $erro = '';
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+
         try{
             $sql = 'DELETE FROM contrato_itens WHERE id = :id';
             $stmt = $pdo->prepare($sql);
@@ -71,6 +73,8 @@
 <p>Tem certeza que deseja excluir o item: <strong><?= e($item["descricao"]) ?></strong> deste contrato?</p>
 
 <form method="POST">
+    <?= campoTokenCsrf() ?>
+    
     <button type="submit">Excluir</button>
     <a class="botao-cancelar" href="ver.php?id=<?= (int)$item['id_contrato'] ?>">Cancelar</a>
 </form>

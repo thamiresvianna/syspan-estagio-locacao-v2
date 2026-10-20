@@ -20,6 +20,8 @@
     $erro = '';
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        exigirCsrf();
+
         $sql = 'SELECT COUNT(*) FROM contrato_itens WHERE id_equipamento = :id_equipamento';
         $consulta = $pdo->prepare($sql);
         $consulta -> execute([':id_equipamento' => $item['id_equipamento']]);
@@ -65,6 +67,8 @@
 <p>Tem certeza que deseja excluir o item: <strong><?= e($item["descricao"]) ?></strong> da tabela de preços?</p>
 
 <form method="POST">
+    <?= campoTokenCsrf() ?>
+    
     <button type="submit">Excluir</button>
     <a class="botao-cancelar" href="ver.php?id=<?= (int)$item['id_preco'] ?>">Cancelar</a>
 </form>
