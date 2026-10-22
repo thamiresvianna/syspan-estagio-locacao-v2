@@ -20,14 +20,15 @@
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         exigirCsrf();
 
-        $sql = 'SELECT COUNT(*) FROM preco_itens WHERE id_preco = :id';
+        $sql = 'SELECT (SELECT COUNT(*) FROM preco_itens WHERE id_preco = :id1) +
+                        (SELECT COUNT(*) FROM contratos WHERE id_preco = :id2)';
         $consulta = $pdo->prepare($sql);
-        $consulta -> execute([':id' => $id]);
+        $consulta -> execute([':id1' => $id, ':id2' => $id]);
 
         $total_itens = $consulta->fetchColumn();
 
         if($total_itens > 0){
-            $erro = "Não é possível excluir esta tabela de preços porque ela possui equipamentos vinculados.";
+            $erro = "Não é possível excluir esta tabela de preços porque ela possui equipamentos ou contratos vinculados.";
         } else {
             try{
                 $sql = 'DELETE FROM precos WHERE id = :id';
